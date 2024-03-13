@@ -5,8 +5,10 @@ const int PIN_RED   = 6;
 const int PIN_GREEN = 5;
 const int PIN_BLUE  = 3;
 
+const int buttonPin = 2;
+
 float duration, distance;
-int score;
+int score, buttonState;
 bool korissa;
 
 void setup() {
@@ -17,6 +19,9 @@ void setup() {
   pinMode(PIN_GREEN, OUTPUT);
   pinMode(PIN_BLUE,  OUTPUT);
 
+  pinMode(buttonPin, INPUT);
+  buttonState = 0;
+
   Serial.begin(9600);
 
   score = 0;
@@ -24,6 +29,12 @@ void setup() {
 }
 
 void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState == HIGH) {
+    score = 0;
+  }
+
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
