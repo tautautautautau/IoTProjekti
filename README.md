@@ -8,3 +8,5 @@
 3. HC-SR04 ultraäänianturi
 4. RGB Ledi
 5. Nappi
+6. 3x 330 ohm vastus
+7. 1x 10k ohm vastus
