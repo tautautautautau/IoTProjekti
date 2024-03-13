@@ -1,6 +1,10 @@
 const int trigPin = 9;
 const int echoPin = 10;
 
+const int PIN_RED   = 6;
+const int PIN_GREEN = 5;
+const int PIN_BLUE  = 3;
+
 float duration, distance;
 int score;
 bool korissa;
@@ -8,6 +12,11 @@ bool korissa;
 void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+
+  pinMode(PIN_RED,   OUTPUT);
+  pinMode(PIN_GREEN, OUTPUT);
+  pinMode(PIN_BLUE,  OUTPUT);
+
   Serial.begin(9600);
 
   score = 0;
@@ -30,8 +39,10 @@ void loop() {
       score = score + 1;
     }
     korissa = true;
+    setColor(0,127,0);
     delay(1000);
   } else {
+    setColor(200,20,0);
     korissa = false;
   }
   
@@ -40,4 +51,10 @@ void loop() {
   Serial.print(" | Distance: ");
   Serial.println(distance);
   delay(100);
+}
+
+void setColor(int R, int G, int B) {
+  analogWrite(PIN_RED,   R);
+  analogWrite(PIN_GREEN, G);
+  analogWrite(PIN_BLUE,  B);
 }
