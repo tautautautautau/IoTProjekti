@@ -1,3 +1,8 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,16,2);
+
 const int trigPin = 9;
 const int echoPin = 10;
 
@@ -6,6 +11,8 @@ const int PIN_GREEN = 5;
 const int PIN_BLUE  = 3;
 
 const int buttonPin = 2;
+
+const int piezoPin = 8;
 
 float duration, distance;
 int score, buttonState;
@@ -22,7 +29,13 @@ void setup() {
   pinMode(buttonPin, INPUT);
   buttonState = 0;
 
-  Serial.begin(9600);
+  pinMode(piezoPin, OUTPUT);
+
+  lcd.begin();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Score:");
+  //Serial.begin(9600);
 
   score = 0;
   korissa = false;
@@ -48,6 +61,9 @@ void loop() {
     Serial.println("KORISSA");
     if (!korissa) {
       score = score + 1;
+      tone(piezoPin, 1000);
+      delay(500);
+      noTone(piezoPin);
     }
     korissa = true;
     setColor(0,127,0);
@@ -61,6 +77,10 @@ void loop() {
   Serial.print(score);
   Serial.print(" | Distance: ");
   Serial.println(distance);
+  lcd.setCursor(0,1);
+  lcd.print("                ");
+  lcd.setCursor(0,1);
+  lcd.print(score);
   delay(100);
 }
 
