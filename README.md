@@ -10,4 +10,5 @@
 5. Nappi
 6. 3x 330 ohm vastus
 7. 1x 10k ohm vastus
-8. Piezo summeri
+8. LCD (2x16)
+9. Piezo summeri
