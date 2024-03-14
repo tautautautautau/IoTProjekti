@@ -32,6 +32,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
   VCC to Arduino 5v
   GND to Arduino GND
 */
+
 const int PIN_TRIG = 9;
 const int PIN_ECHO = 10;
 
@@ -47,8 +48,7 @@ float duration, distance;
 int score, buttonState;
 bool scored;
 
-void setup()
-{
+void setup() {
   // Set pin modes for all the components
   pinMode(PIN_TRIG, OUTPUT);
   pinMode(PIN_ECHO, INPUT);
@@ -76,12 +76,10 @@ void setup()
   scored = false;
 }
 
-void loop()
-{
+void loop() {
   // Read button state and reset score if button is pressed
   buttonState = digitalRead(PIN_BUTTON);
-  if (buttonState == HIGH)
-  {
+  if (buttonState == HIGH) {
     score = 0;
   }
 
@@ -97,41 +95,37 @@ void loop()
   distance = (duration * .0343) / 2;
 
   // Check if the ball is in the basket
-  if (distance < 6 && distance > 0)
-  {
+  if (distance < 6 && distance > 0) {
     Serial.println("scored");
-    if (!scored)
-    {
+    if (!scored) {
       score = score + 1;
+      updateLCDScore(score);
       tone(PIN_BUZZER, 1000);
       delay(500);
       noTone(PIN_BUZZER);
     }
     scored = true;
-    setColor(0, 127, 0);
-    delay(1000);
-  }
-  else
-  {
+    setColor(0, 200, 0);
+  } else {
     setColor(200, 20, 0);
     scored = false;
   }
 
-  // Print score and distance to serial and LCD
-  Serial.print("Score: ");
-  Serial.print(score);
-  Serial.print(" | Distance: ");
-  Serial.println(distance);
+  // Print score and distance to serial
+  Serial.println("Score: " + score + " | Distance: " + distance);
+  delay(100);
+}
+
+// Function to update score to LCD
+void updateLCDScore(int score) {
   lcd.setCursor(0, 1);
   lcd.print("                ");
   lcd.setCursor(0, 1);
   lcd.print(score);
-  delay(100);
 }
 
 // Function to set the color of the RGB LED
-void setColor(int R, int G, int B)
-{
+void setColor(int R, int G, int B) {
   analogWrite(PIN_RED, R);
   analogWrite(PIN_GREEN, G);
   analogWrite(PIN_BLUE, B);
