@@ -96,19 +96,21 @@ void loop() {
 
   // Check if the ball is in the basket
   if (distance < 6 && distance > 0) {
-    Serial.println("scored");
+    Serial.println("ball in basket");
+
+    // This checks if ball was not in the net last loop
     if (!scored) {
+      Serial.println("scored");
       score = score + 1;
       updateLCDScore(score);
-      tone(PIN_BUZZER, 1000);
-      delay(500);
-      noTone(PIN_BUZZER);
+      tone(PIN_BUZZER, 1000, 500); // (PIN, Hz, ms)
     }
-    scored = true;
-    setColor(0, 200, 0);
+
+    scored = true; // Ball in basket
+    setColor(0, 200, 0); // Set LED green
   } else {
-    setColor(200, 20, 0);
-    scored = false;
+    scored = false; // Ball out of basket
+    setColor(200, 20, 0); // Set LED orange
   }
 
   // Print score and distance to serial
