@@ -77,10 +77,15 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available() > 0) {
+    score = Serial.parseInt();
+    updateLCDScore(score);
+  }
   // Read button state and reset score if button is pressed
   buttonState = digitalRead(PIN_BUTTON);
   if (buttonState == HIGH) {
     score = 0;
+    updateLCDScore(score);
   }
 
   // Send a pulse to the sensor
@@ -96,11 +101,8 @@ void loop() {
 
   // Check if the ball is in the basket
   if (distance < 6 && distance > 0) {
-    Serial.println("ball in basket");
-
     // This checks if ball was not in the net last loop
     if (!scored) {
-      Serial.println("scored");
       score = score + 1;
       updateLCDScore(score);
       tone(PIN_BUZZER, 1000, 500); // (PIN, Hz, ms)
@@ -114,7 +116,8 @@ void loop() {
   }
 
   // Print score and distance to serial
-  Serial.println("Score: " + score + " | Distance: " + distance);
+  //Serial.println("Score: " + String(score) + " | Distance: " + String(distance));
+  Serial.println(score);
   delay(100);
 }
 
