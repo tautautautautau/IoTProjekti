@@ -4,6 +4,8 @@
 
 [TinkerCAD Circuit](https://www.tinkercad.com/things/4R87mIRfiRz-iot-projekti?sharecode=Ea1lM735HB9TrEcFXiUK6mqv-xxSH20Ct1si783S-Xo)
 
+![Alt text](https://github.com/tautautautautau/IoTProjekti/blob/main/Circuit.png)
+
 ### Komponentit
 1. Raspberry Pi 3B+
 2. Arduino Uno (SparkFun RedBoard)
