@@ -2,17 +2,24 @@ import tkinter as tk
 from tkinter import simpledialog
 import serial
 
+# Global variable to control the main loop
+RUNNING = True
+
 # Connect to Arduino
-ser = serial.Serial('/dev/ttyUSB0', 9600)
-inputPin = 0
-inputPinStr = str(inputPin)
-inputPinString = inputPinStr.encode()
-ser.flushInput()
+ser = serial.Serial('COM5', 9600)
 
 # Create GUI
 root = tk.Tk()
 root.title("Basketball Arcade")
 root.geometry("800x600")
+
+# Quit application function
+def quit_application():
+        global RUNNING
+        RUNNING = False
+
+# Bind the quit_application function to the close button
+root.protocol("WM_DELETE_WINDOW", quit_application)
 
 # Variables
 current_score = 0
@@ -43,6 +50,7 @@ def write_highest_score():
 def add_score():
         global current_score
         current_score += 1
+        ser.write(str(current_score).encode())
         score_label.config(text=f"Current Score: {current_score}")
 
 # Reset current score and update highest score if needed
@@ -58,7 +66,6 @@ def reset_score():
         previous_scores_list.insert(tk.END, score_entry)
         previous_scores_list.configure(state='disabled')
         current_score = 0
-        ser.write(str(current_score).encode())
         score_label.config(text=f"Current Score: {current_score}")
 
 # Configure grid
@@ -92,18 +99,17 @@ previous_scores_list.configure(state='disabled')
 # Read highest score from file on startup
 read_highest_score()
 
-#Main loop
-while True:
-        try:
+# Main loop of the application while RUNNING is True
+while RUNNING:
+        if ser.is_open and ser.in_waiting > 0:
                 lineBytes = ser.readline()
-                line = lineBytes.decode('utf-8')
-                print(line)
+                line = lineBytes.decode('utf-8').strip()
                 if current_score > int(line):
                         reset_score()
                 if current_score != int(line):
-                        current_score = int(line)
-                        score_label.config(text=f"Current Score: {current_score}")
-        except KeyboardInterrupt:
-                ser.close()
-                break
+                        add_score()
         root.update()
+
+# Afterr the main loop is done, close the serial connection and the GUI
+ser.close()
+root.destroy()
