@@ -27,10 +27,9 @@ def read_highest_score():
                         highest_score = (data[0].strip(), int(data[1].strip()))
                 highest_score_label.config(text=f"Highest Score\n {highest_score[0]}: {highest_score[1]}")
         except FileNotFoundError:
-                highest_score = ("", 0)
+                print(f"File not found!")
         except Exception as e:
                 print(f"Error occurred: {e}")
-                highest_score = ("", 0)
 
 # Write highest score to file
 def write_highest_score():
@@ -63,7 +62,7 @@ def reset_score():
         score_label.config(text=f"Current Score: {current_score}")
 
 # Configure grid
-root.grid_columnconfigure(0, weight=3)
+root.grid_columnconfigure(0, weight=2)
 root.grid_columnconfigure(1, weight=1)
 root.grid_rowconfigure(0, weight=1)
 root.grid_rowconfigure(1, weight=3)
@@ -99,11 +98,11 @@ while True:
                 lineBytes = ser.readline()
                 line = lineBytes.decode('utf-8')
                 print(line)
+                if current_score > int(line):
+                        reset_score()
                 if current_score != int(line):
                         current_score = int(line)
                         score_label.config(text=f"Current Score: {current_score}")
-                elif current_score > int(line):
-                        reset_score()
         except KeyboardInterrupt:
                 ser.close()
                 break
