@@ -78,14 +78,15 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    score = Serial.parseInt();
+    String new_score_string = Serial.readString();
+    int new_score = new_score_string.toInt();
+    score = new_score;
     updateLCDScore(score);
   }
   // Read button state and reset score if button is pressed
   buttonState = digitalRead(PIN_BUTTON);
   if (buttonState == HIGH) {
-    score = 0;
-    updateLCDScore(score);
+    resetScore();
   }
 
   // Send a pulse to the sensor
@@ -120,6 +121,13 @@ void loop() {
   //Serial.println("Score: " + String(score) + " | Distance: " + String(distance));
   Serial.println(score);
   delay(100);
+}
+
+void resetScore() {
+  score = 0;
+  updateLCDScore(score);
+  setColor(220, 0, 0); // Set LED red
+  delay(1000);
 }
 
 // Function to update score to LCD
