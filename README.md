@@ -2,9 +2,9 @@
 
 ## Pelihallin koripallopeli
 
-[TinkerCAD Circuit](https://www.tinkercad.com/things/4R87mIRfiRz-iot-projekti?sharecode=Ea1lM735HB9TrEcFXiUK6mqv-xxSH20Ct1si783S-Xo)
+[Suuntaa antava TinkerCAD virtapiiri](https://www.tinkercad.com/things/4R87mIRfiRz-iot-projekti?sharecode=Ea1lM735HB9TrEcFXiUK6mqv-xxSH20Ct1si783S-Xo)
 
-![Alt text](https://github.com/tautautautautau/IoTProjekti/blob/main/Circuit.png)
+![Kuva virtapiiristä](https://github.com/tautautautautau/IoTProjekti/blob/main/Circuit.png)
 
 ### Komponentit
 1. Raspberry Pi 3B+
@@ -15,4 +15,20 @@
 6. 3x 330 ohm vastus
 7. 1x 10k ohm vastus
 8. LCD (2x16)
-9. Piezo summeri
+9. Pietsosummeri
+
+## Tiedostojen kuvaus
+KoripalloGUI.py:
+
+	Python skripti on koripallopelin käyttöliittymä, se käyttää "tkinter" ja "serial" -kirjastoja käyttöliittymän näyttämiseen ja Arduinon kanssa kommunikointiin. Käyttöliittymä näyttää nykyisen pistemäärän, korkeimman pistemäärän ja tämän ajon aiempien pelien pistemäärät.
+	Käyttöliittymässä on painikkeet pistemäärän kasvattamiseen ja nollaamiseen. Nollauksen yhteydessä käyttäjältä kysytään hänen nimeään pistelistaan, päivitetään korkein pistemäärä ja nollataan nykyinen pistemäärä. Korkein pistemäärä tallennetaan tiedostoon, josta se myös ladataan käynnistyksen yhteydessä.
+	Käyttöliittymä keskustelee Arduinon kanssa sarjayhteyden avulla. Jos skripti havaitsee pistemäärän päivittyvän nollaan, suoritetaan nollaus-funktio. Muussa tapauksessa se jatkaa pistemäärän kasvattamista, kun Arduinolta tulee uusi pistemäärä.
+	Skripti myöskin lähettää Arduinolle päivitettyä pistemäärää, kun painetaan pisteen lisäys nappia käyttöliittymästä.
+
+IoTKoripallo.ino:
+
+	Arduino skripti ohjaa ultraääni anturia, nappia, RGB lediä, pietsosummeria ja LCD-näyttöä.
+	Skripti lukee sarjayhteydestä komentoja, joilla voidaan kasvattaa tai nollata pistemäärä.
+	Jos ultraääni anturi havaitsee esineen, tässä tapauksessa pallon, kasvatetaan pistemäärää yhdellä ja soitetaan pietsosummeria. Pallon havaitsemisen jälkeen odotetaan kaksi sekuntia, jotta vältytään pistetilanteet muuttamista useammin yhdellä heitto kerralla.
+	Pistetilanteet muuttuessa päivitetään pistemäärä LCD-näytölle.
+	RGB ledi näyttää skriptin tilan. Oranssina pallo ei ole korissa. Vihreänä pallo on korissa. Pistetilanteen nollautuessa valo on punainen.
