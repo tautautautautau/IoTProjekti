@@ -100,14 +100,15 @@ void loop() {
   distance = (duration * .0343) / 2;
 
   // Check if the ball is in the basket
-  if (distance < 6 && distance > 0) {
+  if (distance < 14 && distance > 0) {
     // This checks if ball was not in the net last loop
     if (!scored) {
       score = score + 1;
       updateLCDScore(score);
       tone(PIN_BUZZER, 1000, 500); // (PIN, Hz, ms)
+    } else {
+      delay(2000);
     }
-
     scored = true; // Ball in basket
     setColor(0, 200, 0); // Set LED green
   } else {
