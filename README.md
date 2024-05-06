@@ -4,6 +4,10 @@
 
 ## Pelihallin koripallopeli
 
+Arduinolla ja Raspberry Pi:lla toteutettu "koripallopeli", jossa pelaaja heittää palloa koriin ja kerää pisteitä.
+Pisteet näkyy LCD-näytöllä ja graafisessa käyttöliittymässä.
+Käyttöliittymässä on myöskin pistetilasto ja napit pelin ohjaamiseen.
+
 [Suuntaa antava TinkerCAD virtapiiri](https://www.tinkercad.com/things/4R87mIRfiRz-iot-projekti?sharecode=Ea1lM735HB9TrEcFXiUK6mqv-xxSH20Ct1si783S-Xo)
 
 ![Kuva virtapiiristä](https://github.com/tautautautautau/IoTProjekti/blob/main/Circuit.png)
