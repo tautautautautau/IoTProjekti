@@ -1,7 +1,5 @@
 # IoT-ohjelmointi projekti
 
-***
-
 ## Pelihallin koripallopeli
 
 Arduinolla ja Raspberry Pi:lla toteutettu "koripallopeli", jossa pelaaja heittää palloa koriin ja kerää pisteitä.
@@ -31,11 +29,14 @@ Python skripti koripallopelin käyttöliittymälle, joka käyttää "tkinter" ja
 Käyttöliittymässä on painikkeet pistemäärän kasvattamiseen ja nollaamiseen. Nollauksen yhteydessä käyttäjältä kysytään hänen nimeään pistelistaan, päivitetään korkein pistemäärä ja nollataan nykyinen pistemäärä. Korkein pistemäärä tallennetaan tiedostoon, josta se myös ladataan käynnistyksen yhteydessä.
 Käyttöliittymä keskustelee Arduinon kanssa sarjayhteyden avulla. Jos skripti havaitsee pistemäärän päivittyvän nollaan, suoritetaan nollaus-funktio. Muussa tapauksessa se jatkaa pistemäärän kasvattamista, kun Arduinolta tulee uusi pistemäärä.
 Skripti myöskin lähettää Arduinolle päivitettyä pistemäärää, kun painetaan pisteen lisäys nappia käyttöliittymästä.
-***
+
 **[IoTKoripallo.ino](IoTKoripallo/IoTKoripallo.ino):**
 Arduino skripti, joka ohjaa ultraääni anturia, nappia, RGB lediä, pietsosummeria ja LCD-näyttöä.
 Skripti lukee sarjayhteydestä komentoja, joilla voidaan kasvattaa tai nollata pistemäärä.
 Jos ultraääni anturi havaitsee esineen, tässä tapauksessa pallon, kasvatetaan pistemäärää yhdellä ja soitetaan pietsosummeria. Pallon havaitsemisen jälkeen odotetaan kaksi sekuntia, jotta vältytään pistetilanteen muuttamiselta useasti yhdellä heitto kerralla.
 Pistetilanteen muuttuessa päivitetään pistemäärä LCD-näytölle.
 RGB ledi näyttää skriptin tilan. Oranssina pallo ei ole korissa. Vihreänä pallo on korissa. Pistetilanteen nollautuessa valo on punainen.
+
+**[hiscore](hiscore):**
+Tekstitiedosto joka pitää sisällään korkeimman pistetilanteen ja pelaajan nimen.
 ***
