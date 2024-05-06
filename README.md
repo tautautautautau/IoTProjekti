@@ -29,6 +29,7 @@ Python skripti koripallopelin käyttöliittymälle, joka käyttää "tkinter" ja
 Käyttöliittymässä on painikkeet pistemäärän kasvattamiseen ja nollaamiseen. Nollauksen yhteydessä käyttäjältä kysytään hänen nimeään pistelistaan, päivitetään korkein pistemäärä ja nollataan nykyinen pistemäärä. Korkein pistemäärä tallennetaan tiedostoon, josta se myös ladataan käynnistyksen yhteydessä.
 Käyttöliittymä keskustelee Arduinon kanssa sarjayhteyden avulla. Jos skripti havaitsee pistemäärän päivittyvän nollaan, suoritetaan nollaus-funktio. Muussa tapauksessa se jatkaa pistemäärän kasvattamista, kun Arduinolta tulee uusi pistemäärä.
 Skripti myöskin lähettää Arduinolle päivitettyä pistemäärää, kun painetaan pisteen lisäys nappia käyttöliittymästä.
+![Käyttöliittymä](GUI.png)
 
 **[IoTKoripallo.ino](IoTKoripallo/IoTKoripallo.ino):**
 Arduino skripti, joka ohjaa ultraääni anturia, nappia, RGB lediä, pietsosummeria ja LCD-näyttöä.
